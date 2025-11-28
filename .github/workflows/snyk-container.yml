@@ -2,7 +2,7 @@ name: Container Scan
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
 
 permissions:
@@ -25,18 +25,18 @@ jobs:
           docker build -t myimage:latest .
 
       - name: Install Snyk CLI
-        uses: snyk/actions/setup@v3
+        uses: snyk/actions/setup@v4
 
       - name: Authenticate Snyk
         run: snyk auth ${{ secrets.SNYK_TOKEN }}
 
-      - name: Snyk Container Test (SARIF output)
+      - name: Snyk Container Test (SARIF)
         run: |
           snyk container test myimage:latest \
             --sarif-file-output=snyk.sarif \
             --severity-threshold=low || true
 
-      # --- FIX: LIMPIAR EL SARIF PARA EVITAR ERRORES DE GITHUB CODE SCANNING ---
+      # --- FIX: limpiar severidades nulas para evitar error de Code Scanning ---
       - name: Fix SARIF (remove null severities)
         run: |
           jq '
@@ -46,7 +46,6 @@ jobs:
 
           mv fixed.sarif snyk.sarif
 
-      # --- SUBIR A GITHUB SECURITY TAB ---
       - name: Upload SARIF to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v4
         with:
