@@ -1,15 +1,20 @@
-FROM node:lts-alpine
+# Use an official Node.js runtime as a parent image
+FROM node:14
 
+# Set the working directory in the container
 WORKDIR /usr/src/app
 
+# Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
-RUN apk add --no-cache python3 make g++ \
-    && npm install \
-    && apk del python3 make g++
+# Install app dependencies
+RUN npm install
 
+# Copy the rest of the application code to the working directory
 COPY . .
 
+# Expose the port the app runs on
 EXPOSE 3000
 
+# Define the command to run the application
 CMD ["npm", "start"]
