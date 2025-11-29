@@ -1,8 +1,6 @@
 # Use an official Node.js runtime as a parent image
-FROM node:25.2.1-alpine3.22
+FROM node:14
 
-
-RUN apk update && apk upgrade
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
