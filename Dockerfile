@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as a parent image
-FROM node:latest
+FROM node:25.2.1-trixie-slim
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
