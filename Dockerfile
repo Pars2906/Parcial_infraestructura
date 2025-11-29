@@ -1,8 +1,5 @@
-# Use a newer, secure Node.js runtime
+# Use an official Node.js runtime as a parent image
 FROM node:14
-
-# Actualizar Busybox y paquetes del sistema
-RUN apk update && apk upgrade
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
@@ -19,5 +16,5 @@ COPY . .
 # Expose the port the app runs on
 EXPOSE 3000
 
-Define the command to run the application
+# Define the command to run the application
 CMD ["npm", "start"]
