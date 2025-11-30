@@ -1,21 +1,20 @@
-# Use an official Node.js runtime as a parent image
-FROM node:20.12.2
+FROM node:20
 
-# Set the working directory in the container
-WORKDIR /usr/src/app
+# Carpeta donde trabajará la app dentro del contenedor
+WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
+# Copiamos primero dependencias 
 COPY package*.json ./
 
-# Install app dependencies
+# Instalamos dependencias
 RUN npm install
 
-# Copy the rest of the application code to the working directory
+# Copiamos el resto del código
 COPY . .
 
-# Expose the port the app runs on
+# Exponemos puerto 
 EXPOSE 3000
 
-# Define the command to run the application
+# Comando por defecto
 CMD ["npm", "start"]
 
